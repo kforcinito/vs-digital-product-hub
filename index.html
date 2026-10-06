@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>VS Digital Team Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Logo: Varsity Spirit primary stacked, 4-color reverse (for black backgrounds) from the 2024 brand logo toolkit.
+   Varsity Spirit brand palette (Brand Style Guide 03.11.2024): Columbia Blue, True Black, Medium Blue, Reflex Blue.
+   Type: Futura PT (brand primary) with Jost as the web stand-in, Arial as the brand's approved digital fallback.
+   Layout: full-bleed color bands with a 1180px content column; no extra ribbon graphics, since the logo carries the VBraid. */
+:root{
+  --columbia:#5ea5da; --black:#000000; --medium:#326db2; --reflex:#25347b;
+  --paper:#ffffff; --off:#f3f7fb; --tint:#e4eef8; --line:#d2dce8;
+  --ink:#0d1220; --muted:#4f5b6e;
+  --link:#326db2;            /* Medium Blue: readable on white for small text */
+  --display:"Futura PT","futura-pt",Futura,"Jost","Century Gothic",Arial,sans-serif;
+  --body:"Futura PT","futura-pt",Futura,"Jost",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:62px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--off);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.55;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+a{color:var(--link);font-weight:600}
+a:focus-visible{outline:3px solid var(--columbia);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:clamp(36px,5.2vw,62px);line-height:.98;font-weight:800;color:var(--reflex)}
+h3{font-size:21px;line-height:1.15;font-weight:700}
+p{margin:0}
+ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
+li::marker{color:var(--columbia)}
+.small{font-size:15px}
+.muted{color:var(--muted)}
+.kicker{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--medium);display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:22px;height:4px;background:var(--columbia);transform:skewX(-30deg)}
+
+/* ---------- HERO ---------- */
+.hero{background:var(--black);color:#fff;position:relative;overflow:hidden;isolation:isolate}
+.hero .logo{display:block;height:128px;width:auto;margin:0 0 28px}   /* clearspace kept via margin; nothing else near the mark */
+.hero .wrap{padding-block:68px 0;display:grid;gap:22px}
+.hero .kicker{color:var(--columbia)}
+.hero h1{font-size:clamp(50px,9vw,118px);line-height:.92;font-weight:800;max-width:10ch}
+.hero h1 em{font-style:normal;color:var(--columbia);display:block}
+.hero .lede{font-size:clamp(17px,2vw,21px);color:#d7e4f1;max-width:52ch}
+.hero-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:30px;border-top:1px solid rgba(255,255,255,.2)}
+.hero-stats div{padding:20px 18px 28px 0;display:grid;gap:4px}
+.hero-stats b{font-family:var(--display);font-weight:800;font-size:clamp(38px,4.6vw,54px);line-height:1;font-variant-numeric:tabular-nums;color:var(--columbia)}
+.hero-stats span{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#c3d3e6}
+@media (max-width:680px){.hero .logo{height:96px;margin-bottom:20px}}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--reflex);box-shadow:0 3px 0 var(--columbia)}
+.nav .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;align-items:center}
+.nav .brand{font-family:var(--display);font-weight:800;font-size:19px;color:#fff;letter-spacing:.06em;padding-right:18px;white-space:nowrap}
+.nav .brand i{color:var(--columbia);font-style:normal}
+.nav a{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#c3d3e6;text-decoration:none;padding:16px 12px 14px;white-space:nowrap;position:relative}
+.nav a:hover,.nav a.on{color:#fff}
+.nav a.on::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:4px;background:var(--columbia)}
+
+/* ---------- BANDS ---------- */
+.band{padding-block:84px}
+.band.white{background:var(--paper)}
+.band.off{background:var(--off)}
+.band.navy{background:var(--reflex);color:#fff}
+.band.navy .muted{color:#c3d3e6}
+.band.navy h2{color:#fff}
+.band.navy .kicker{color:var(--columbia)}
+.band .wrap{display:flex;flex-direction:column;gap:30px}
+.shead{display:grid;gap:14px}
+.shead .sub{font-size:18.5px;color:var(--muted);max-width:62ch}
+.band.navy .shead .sub{color:#d7e4f1}
+.subhead{font-family:var(--display);font-weight:700;font-size:26px;display:flex;align-items:center;gap:14px;margin-top:14px}
+.subhead::after{content:"";flex:1;height:2px;background:currentColor;opacity:.15}
+
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--paper);border:2px solid var(--reflex);border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:transform .15s ease, box-shadow .15s ease}
+.card:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--columbia)}
+.tag{align-self:flex-start;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;background:var(--reflex);color:#fff}
+.tag.red{background:var(--columbia);color:var(--black)}
+
+/* ---------- MISSION ---------- */
+.mv{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.mv > div{padding:40px 36px;display:grid;gap:16px;align-content:start}
+.mv .mission{background:var(--paper);border:3px solid var(--reflex)}
+.mv .vision{background:var(--columbia);color:var(--black)}
+.mv .label{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.mv .mission .label{color:var(--medium)}
+.mv blockquote{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(24px,2.8vw,34px);line-height:1.12;text-wrap:balance}
+.mv .mission blockquote{color:var(--reflex)}
+.mv .vision p{color:#0d1220;font-size:16.5px}
+.pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.pillar{background:var(--reflex);color:#fff;padding:28px 26px;display:grid;gap:8px;border-right:1px solid rgba(255,255,255,.14)}
+.pillar:nth-child(2){background:var(--medium)}
+.pillar:nth-child(3){background:var(--black)}
+.pillar:last-child{border-right:0}
+.pillar .n{font-family:var(--display);font-weight:800;font-size:58px;line-height:.85;color:var(--columbia)}
+.pillar:nth-child(2) .n{color:#fff}
+.pillar p{color:#d7e4f1;font-size:15.5px}
+.shift{display:grid;grid-template-columns:1fr 64px 1fr;align-items:stretch}
+.shift .from{background:var(--tint);padding:26px;display:grid;gap:12px;align-content:start}
+.shift .to{background:var(--reflex);color:#fff;padding:26px;display:grid;gap:12px;align-content:start}
+.shift .arrow{background:var(--columbia);color:var(--black);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:36px}
+.shift h3{font-size:26px}
+
+/* ---------- GOALS ---------- */
+.prio{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.prio .card{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff}
+.prio .num{font-family:var(--display);font-weight:800;font-size:50px;line-height:.85;color:var(--columbia)}
+.prio p{color:#d7e4f1}
+.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0}
+.stat{padding:22px 18px;display:grid;gap:6px;align-content:start;background:var(--paper);color:var(--reflex)}
+.stat:nth-child(odd){background:var(--columbia);color:var(--black)}
+.stat b{font-family:var(--display);font-weight:800;font-size:clamp(40px,4.2vw,56px);line-height:.95;font-variant-numeric:tabular-nums}
+.stat span{font-weight:600;font-size:15px;line-height:1.3}
+.journey{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.jstep{padding:24px 22px;display:flex;flex-direction:column;gap:10px;background:rgba(255,255,255,.06);border-top:6px solid var(--medium)}
+.jstep.now{background:var(--columbia);color:var(--black);border-top-color:var(--black)}
+.jstep .year{font-family:var(--display);font-weight:800;font-size:38px;line-height:.95}
+.jstep .here{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:var(--black);color:#fff;padding:3px 8px;align-self:flex-start}
+.jstep ul{color:#d7e4f1}
+.jstep.now ul{color:var(--black)}
+.jstep.now li::marker{color:var(--black)}
+.found .card h3{font-size:20px;color:var(--reflex)}
+
+/* ---------- PRODUCTS ---------- */
+.legend{display:flex;gap:10px 18px;flex-wrap:wrap;font-size:14.5px;color:var(--muted);align-items:center}
+.status{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;white-space:nowrap}
+.st-run{background:var(--tint);color:var(--reflex)}
+.st-build{background:var(--reflex);color:#fff}
+.st-disc{background:var(--columbia);color:var(--black)}
+.st-later{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 2px var(--line)}
+.bucket{display:grid;gap:14px}
+.bhead{display:flex;align-items:stretch;flex-wrap:wrap}
+.bhead h3{background:var(--reflex);color:#fff;padding:10px 16px;font-size:22px}
+.bucket.b2 .bhead h3{background:var(--columbia);color:var(--black)}
+.bucket.b3 .bhead h3{background:var(--black)}
+.bhead p{padding:10px 16px;color:var(--muted);font-size:15.5px;align-self:center}
+.prod{background:var(--paper);border:2px solid var(--reflex);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:transform .15s ease, box-shadow .15s ease}
+.prod:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--columbia)}
+.b3 .prod{border-style:dashed;border-color:#9aa8bb}
+.b3 .prod:hover{box-shadow:none;transform:none}
+.prod .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.prod h3{font-size:22px;color:var(--reflex)}
+.owner{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
+.owner b{color:var(--medium);font-weight:600}
+
+/* ---------- STRUCTURE ---------- */
+.lead{background:var(--reflex);color:#fff;padding:26px 28px;display:grid;gap:6px;border-left:10px solid var(--columbia)}
+.lead .who{font-family:var(--display);font-weight:800;font-size:30px;line-height:1.05}
+.lead .role{color:#d7e4f1}
+.pod{background:var(--paper);border:2px solid var(--reflex);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.pod h3{background:var(--reflex);color:#fff;padding:12px 18px;font-size:24px;display:flex;justify-content:space-between;align-items:center}
+.pod h3 small{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--reflex);background:var(--columbia);padding:3px 7px}
+.pod .people{padding:18px;display:grid;gap:14px}
+.pod.shared{border-color:var(--black)}
+.pod.shared h3{background:var(--black)}
+.person{display:flex;flex-direction:column;border-left:4px solid var(--columbia);padding-left:12px}
+.person.ext{border-left:4px dashed #9aa8bb}
+.who{font-weight:700;font-size:17px}
+.role{font-size:14.5px;color:var(--muted)}
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.lane{padding:28px;display:grid;gap:12px;align-content:start}
+.lane.dig{background:var(--reflex);color:#fff}
+.lane.it{background:var(--paper);border:2px solid var(--reflex)}
+.lane h3{font-size:28px}
+.lane.dig h3 span{color:var(--columbia)}
+.callout{background:var(--columbia);color:var(--black);padding:18px 22px;font-weight:600;font-size:17px}
+
+/* ---------- HOW WE WORK ---------- */
+.early{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:26px;align-items:start}
+.early p{font-size:19px;color:#d7e4f1}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--display);font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:.05em;padding:8px 14px;border:2px solid #fff;color:#fff}
+.chip:nth-child(odd){background:var(--columbia);border-color:var(--columbia);color:var(--black)}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s}
+.step{counter-increment:s;padding:24px 22px;display:flex;flex-direction:column;gap:8px;background:var(--paper);border:2px solid var(--reflex);margin-left:-2px}
+.step:first-child{margin-left:0}
+.step::before{content:"0" counter(s);font-family:var(--display);font-weight:800;font-size:50px;line-height:.9;color:var(--columbia)}
+.step b{font-family:var(--display);font-weight:700;font-size:23px;color:var(--reflex)}
+.tablewrap{overflow-x:auto;background:var(--paper);border:2px solid var(--reflex);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:15.5px;min-width:660px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--off)}
+th{background:var(--reflex);color:#fff;font-family:var(--display);font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+td.k{font-weight:700}
+.dec{font-family:var(--display);font-weight:700;font-size:16.5px;color:var(--medium)}
+.dod{background:var(--black);color:#fff;padding:24px 26px;display:grid;gap:14px;border-left:10px solid var(--columbia)}
+.dod h3{font-size:26px}
+.dod ol{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.dod li{font-weight:600;background:rgba(255,255,255,.1);padding:8px 12px}
+.dod li::before{content:"✓ ";color:var(--columbia);font-weight:800}
+
+/* ---------- ROLES ---------- */
+.rolecard{background:var(--paper);border:2px solid var(--reflex);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:transform .15s ease, box-shadow .15s ease}
+.rolecard:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--columbia)}
+.rolecard header{background:var(--reflex);color:#fff;padding:16px 18px;display:grid;gap:4px}
+.rolecard:nth-child(2) header{background:var(--medium)}
+.rolecard:nth-child(3) header{background:var(--black)}
+.rolecard:nth-child(4) header{background:var(--columbia);color:var(--black)}
+.rolecard header h3{font-size:24px}
+.rolecard header span{font-size:14.5px;font-weight:600;opacity:.9}
+.rolecard ul{padding:18px 18px 20px 34px;font-size:15.5px}
+
+footer{background:var(--black);color:#c3d3e6;border-top:6px solid var(--columbia)}
+footer .wrap{padding-block:26px;font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer .wrap{align-items:center}
+footer img{height:64px;width:auto;display:block}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1000px){
+  .prio,.g4,.steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .journey{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step{margin-left:0;margin-top:-2px}
+  .early{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .band{padding-block:56px}
+  .hero .wrap{padding-top:44px}
+  .hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g2,.g3,.g4,.prio,.steps,.journey,.pillars,.mv,.lanes{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .shift{grid-template-columns:1fr}
+  .shift .arrow{height:48px}
+  .shift .arrow span{transform:rotate(90deg)}
+  .mv > div{padding:28px 22px}
+  .pillar{border-right:0;border-bottom:1px solid rgba(255,255,255,.14)}
+  .nav .brand{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" src="vs-logo-stack-4c-rev.png" width="354" height="400" alt="Varsity Spirit">
+    <span class="kicker">Digital Experience</span>
+    <h1>One team. <em>One Varsity.</em></h1>
+    <p class="lede">Who we are, what we're building, and how to work with us. We're moving from project-by-project delivery to a product team that owns roadmaps and outcomes for every Varsity Spirit digital product.</p>
+    <div class="hero-stats">
+      <div><b>13</b><span>Products in flight</span></div>
+      <div><b>2</b><span>Product pods</span></div>
+      <div><b>4</b><span>2026 priorities</span></div>
+      <div><b>2030</b><span>Vision horizon</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <span class="brand">VS <i>/</i> DIGITAL</span>
+    <a href="#mission">Mission</a>
+    <a href="#goals">Goals</a>
+    <a href="#products">Products</a>
+    <a href="#structure">Structure</a>
+    <a href="#how">How we work</a>
+    <a href="#roles">Roles</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ MISSION & VISION ============ -->
+<section class="band white" id="mission"><div class="wrap">
+  <div class="shead"><span class="kicker">Mission &amp; vision</span><h2>Why we exist</h2></div>
+  <div class="mv">
+    <div class="mission">
+      <span class="label">Mission</span>
+      <blockquote>Lead product-centric, value-driven digital initiatives that connect every customer touchpoint, revenue stream, and competitive advantage for Varsity Spirit.</blockquote>
+    </div>
+    <div class="vision">
+      <span class="label">Vision</span>
+      <blockquote>The most innovative digital presence in youth activities: every athlete, family, and event in one seamless ecosystem.</blockquote>
+      <p>By 2030, Digital is the strategic engine and innovation driver behind every major Varsity Spirit initiative.</p>
+    </div>
+  </div>
+
+  <div class="subhead">Our north star</div>
+  <div class="pillars">
+    <div class="pillar"><span class="n">01</span><h3>One Varsity digital ecosystem</h3><p>One identity and a connected experience across every product.</p></div>
+    <div class="pillar"><span class="n">02</span><h3>A strong product portfolio</h3><p>Products athletes, families, coaches, and gym owners rely on.</p></div>
+    <div class="pillar"><span class="n">03</span><h3>Continuous improvement</h3><p>Persistent roadmaps, measured outcomes, steady iteration.</p></div>
+  </div>
+
+  <div class="subhead">The shift we're making</div>
+  <div class="shift">
+    <div class="from"><span class="tag">Today</span><h3>Project mode</h3><ul>
+      <li>Scope is set before Digital is involved</li><li>One-and-done deliverables, no roadmaps</li><li>Annual project lists, not customer journeys</li><li>No product owners or KPIs</li><li>Digital is the execution arm</li></ul></div>
+    <div class="arrow" aria-hidden="true"><span>→</span></div>
+    <div class="to"><span class="tag red">Where we're going</span><h3>Product mode</h3><ul>
+      <li>Digital co-owns strategy from day one</li><li>Persistent roadmaps and ongoing iteration</li><li>Products aligned to customer journeys</li><li>Clear owners, OKRs, and KPIs</li><li>Digital is a growth and innovation partner</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ============ GOALS ============ -->
+<section class="band navy" id="goals"><div class="wrap">
+  <div class="shead"><span class="kicker">Goals</span><h2>2026 priorities</h2><p class="sub">Year one builds the foundation: a product operating model, our core products running well, and evidence for the next big bets.</p></div>
+  <div class="prio">
+    <div class="card"><span class="num">01</span><h3>Product-centered operating model</h3><p class="small">Define product verticals, assign owners, start quarterly planning, and launch KPIs for every digital product.</p></div>
+    <div class="card"><span class="num">02</span><h3>Registration + the new MyVarsity</h3><p class="small">One registration and identity layer across camps, competitions, apparel, and events, moving toward self-serve.</p></div>
+    <div class="card"><span class="num">03</span><h3>Strategic POVs and POCs</h3><p class="small">AI Enablement, VTV, One Varsity App, and Varsity.com POVs, plus 2–3 proofs of concept before committing investment.</p></div>
+    <div class="card"><span class="num">04</span><h3>Team capacity and foundations</h3><p class="small">Add PM and UX/design capability, and put data and analytics in place to measure KPIs.</p></div>
+  </div>
+
+  <div class="subhead">What done looks like in 2026</div>
+  <div class="stats">
+    <div class="stat"><b>3+</b><span>Strategic POVs delivered</span></div>
+    <div class="stat"><b>2–3</b><span>Proofs of concept</span></div>
+    <div class="stat"><b>10+</b><span>Enhancements released</span></div>
+    <div class="stat"><b>100%</b><span>Digital waivers for annual events</span></div>
+    <div class="stat"><b>2</b><span>AI workflow integrations</span></div>
+    <div class="stat"><b>1</b><span>Varsity.com discovery underway</span></div>
+  </div>
+
+  <div class="subhead">The road to 2030</div>
+  <div class="journey">
+    <div class="jstep now"><span class="year">2026</span><span class="here">We are here</span><h3>Operationalize core products</h3><ul class="small"><li>Launch Registration and the new MyVarsity</li><li>Varsity.com and One Varsity App discovery</li><li>Enhanced PCL fan experience</li><li>Multi-year roadmaps for core products</li></ul></div>
+    <div class="jstep"><span class="year">2027</span><h3>Integrate platforms</h3><ul class="small"><li>Launch Varsity.com and the One Varsity App</li><li>Cross-platform analytics</li><li>AI-augmented workflows</li><li>Defined product KPIs and benchmarks</li></ul></div>
+    <div class="jstep"><span class="year">2028</span><h3>Grow community and differentiate</h3><ul class="small"><li>Users active on 2+ Varsity products</li><li>AI-powered personalization</li><li>Most product decisions backed by data</li><li>Gym/Studio and Social platform discovery</li></ul></div>
+    <div class="jstep"><span class="year">2029–30</span><h3>Grow the ecosystem</h3><ul class="small"><li>Loyalty programs</li><li>Gym/Studio platform live</li><li>VS Social platform live</li><li>Category leader in unified digital experience</li></ul></div>
+  </div>
+</div></section>
+
+<section class="band off" aria-labelledby="found-h"><div class="wrap">
+  <div class="shead"><span class="kicker">Foundations</span><h2 id="found-h">What has to be true first</h2></div>
+  <div class="grid g3 found">
+    <div class="card"><h3>Unified customer identity</h3><p class="small muted">One record per athlete and family, needed for personalization, loyalty, and cross-product analytics.</p></div>
+    <div class="card"><h3>Data, analytics, and experimentation</h3><p class="small muted">KPI tracking, A/B testing, and feature flags so decisions rest on data.</p></div>
+    <div class="card"><h3>Product operating model</h3><p class="small muted">Product verticals, owners, quarterly planning, and OKRs.</p></div>
+    <div class="card"><h3>Shared UX design system</h3><p class="small muted">A component library and standards for a consistent One Varsity experience.</p></div>
+    <div class="card"><h3>Team capacity and capability</h3><p class="small muted">More PM and engineering capacity before the Year 2 roadmap.</p></div>
+    <div class="card"><h3>Spirit first-party data pipeline</h3><p class="small muted">Governed collection of Spirit-owned student and athlete data.</p></div>
+  </div>
+</div></section>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="band white" id="products"><div class="wrap">
+  <div class="shead"><span class="kicker">Products</span><h2>What we own</h2><p class="sub">Our products, grouped by how we invest in them. Each product has one product owner on the team.</p></div>
+  <div class="legend"><span class="status st-run">Run</span>Live, keeping it healthy <span class="status st-build">Build</span>Actively improving <span class="status st-disc">Discovery</span>Shaping before we build <span class="status st-later">Later</span>After foundations</div>
+
+  <div class="bucket b1">
+    <div class="bhead"><h3>Care &amp; feeding</h3><p>Keep existing products running well and improving.</p></div>
+    <div class="grid g3">
+      <div class="prod"><div class="top"><h3>Digital Waivers</h3><span class="status st-run">Run</span></div><p class="small muted">Annual-event waivers: ERMP integration, mobile-first experience, faster on-site check-in.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>Digital Ticketing</h3><span class="status st-run">Run</span></div><p class="small muted">Year-over-year event updates and support for CLI and PCL events.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>Digital Catalogs</h3><span class="status st-run">Run</span></div><p class="small muted">Stable dev, staging, and production environments, plus new sales features.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>Apparel · VDS / MTS</h3><span class="status st-run">Run</span></div><p class="small muted">Platform roadmaps and analytics, then reduce friction in product discovery and checkout.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>PCL Fan Voting · S1</h3><span class="status st-run">Run</span></div><p class="small muted">In-flight fan voting experience.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>CLI Studios</h3><span class="status st-run">Run</span></div><p class="small muted">Ongoing strategic support and partnership.</p><span class="owner">Owner: <b>TBD</b></span></div>
+    </div>
+  </div>
+
+  <div class="bucket b2">
+    <div class="bhead"><h3>Meaningful evolution</h3><p>Roadmap-driven, measured against KPIs.</p></div>
+    <div class="grid g3">
+      <div class="prod"><div class="top"><h3>Registration</h3><span class="status st-build">Build</span></div><p class="small muted">Launch, then analytics, testing, and a prioritized roadmap toward fully self-serve registration.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>MyVarsity</h3><span class="status st-build">Build</span></div><p class="small muted">Customer profile and portal launched with ERMP, expanding to apparel and retail.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>PCL · Season 2</h3><span class="status st-build">Build</span></div><p class="small muted">Enhanced digital fan experience: fan database, mobile app, website evolution.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>Varsity.com</h3><span class="status st-disc">Discovery</span></div><p class="small muted">Discovery in 2026, toward a new site and content strategy.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>One Varsity App</h3><span class="status st-disc">Discovery</span></div><p class="small muted">Platform discovery in 2026, building toward launch.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>VTV</h3><span class="status st-disc">Discovery</span></div><p class="small muted">POV and recommendation, then personalized content and premium tiers.</p><span class="owner">Owner: <b>TBD</b></span></div>
+      <div class="prod"><div class="top"><h3>AI workflows &amp; analytics</h3><span class="status st-disc">Discovery</span></div><p class="small muted">AI Enablement POV, AI in team workflows, and cross-platform analytics.</p><span class="owner">Owner: <b>TBD</b></span></div>
+    </div>
+  </div>
+
+  <div class="bucket b3">
+    <div class="bhead"><h3>On the horizon</h3><p>New capabilities, planned after the foundations are in place.</p></div>
+    <div class="grid g3">
+      <div class="prod"><div class="top"><h3>Gym / Studio Platform</h3><span class="status st-later">Later</span></div><p class="small muted">Back-office tools for gym owners and studios.</p></div>
+      <div class="prod"><div class="top"><h3>VS Social Platform</h3><span class="status st-later">Later</span></div><p class="small muted">A privacy-first, verified community for athletes and families.</p></div>
+      <div class="prod"><div class="top"><h3>Loyalty</h3><span class="status st-later">Later</span></div><p class="small muted">Cross-product rewards tied to one Varsity identity.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ STRUCTURE ============ -->
+<section class="band off" id="structure"><div class="wrap">
+  <div class="shead"><span class="kicker">Structure</span><h2>How we're organized</h2><p class="sub">Two product pods aligned to our portfolio, with UX shared across both and committed IT and vendor engineers in each pod.</p></div>
+  <div class="lead"><span class="who">Kylie Forcinito</span><span class="role">Director, Digital Experience · Head of Product. Owns strategy, the portfolio roadmap, intake and quarterly planning, budget, vendors, and IT capacity. Reports to Michael Turner, SVP.</span></div>
+  <div class="grid g3">
+    <div class="pod"><h3>Pod A <small>Product pod</small></h3><div class="people">
+      <div class="person"><span class="who">Tina Hodson</span><span class="role">Product Manager</span></div>
+      <div class="person"><span class="who">Aaron Geist</span><span class="role">Systems Engineer · Tech Lead</span></div>
+      <div class="person ext"><span class="who">IT and vendor engineers</span><span class="role">Committed each quarter</span></div></div></div>
+    <div class="pod"><h3>Pod B <small>Product pod</small></h3><div class="people">
+      <div class="person"><span class="who">Haley Lower</span><span class="role">Product Manager</span></div>
+      <div class="person"><span class="who">Pranava Ravindran</span><span class="role">Systems Engineer · Tech Lead</span></div>
+      <div class="person ext"><span class="who">IT and vendor engineers</span><span class="role">Committed each quarter</span></div></div></div>
+    <div class="pod shared"><h3>UX <small>Shared</small></h3><div class="people">
+      <div class="person"><span class="who">Helen Tran</span><span class="role">Sr. UX Design · UX Lead. Research, design system, and design quality across both pods.</span></div>
+      <div class="person ext"><span class="who">Planned growth</span><span class="role">More PM and UX/design capacity</span></div></div></div>
+  </div>
+
+  <div class="subhead">Digital and IT: clear lanes</div>
+  <div class="lanes">
+    <div class="lane dig"><h3>Digital <span>owns</span></h3><ul><li>Customer-facing product strategy and roadmaps</li><li>UX standards, journey mapping, experience design</li><li>Digital revenue surfaces: registration, commerce, events</li><li>First-party customer data strategy</li><li>Innovation POVs and portfolio priorities</li></ul></div>
+    <div class="lane it"><h3>IT owns</h3><ul><li>Infrastructure and cloud operations</li><li>Network, security, compliance</li><li>Enterprise systems: ERP, HRIS, finance</li><li>Internal tooling and IT service delivery</li><li>Vendor and license management</li></ul></div>
+  </div>
+  <p class="callout">Any tool that shapes a customer outcome, directly or through a rep, belongs on Digital's roadmap, with IT as the infrastructure partner.</p>
+</div></section>
+
+<!-- ============ HOW WE WORK ============ -->
+<section class="band navy" id="how"><div class="wrap">
+  <div class="shead"><span class="kicker">How we work</span><h2>Bring us in early</h2></div>
+  <div class="early">
+    <p>We do our best work when we're part of the conversation from the start, not after scope is set. Involve Digital during:</p>
+    <div class="chips"><span class="chip">Business cases</span><span class="chip">Annual planning</span><span class="chip">Event concepts</span><span class="chip">Go-to-market</span><span class="chip">Apparel innovation</span></div>
+  </div>
+</div></section>
+
+<section class="band white" aria-labelledby="flow-h"><div class="wrap">
+  <div class="shead"><span class="kicker">How we work</span><h2 id="flow-h">How a request moves</h2></div>
+  <div class="steps">
+    <div class="step"><b>Submit</b><span class="small muted">Describe the problem, who it affects, and the business impact. Please don't send requests to individual team members.</span></div>
+    <div class="step"><b>Triage</b><span class="small muted">The product owner reviews new requests weekly and accepts, defers, or declines each one.</span></div>
+    <div class="step"><b>Plan</b><span class="small muted">Accepted work joins the product backlog. Bigger items get a one-page brief and a UX check first.</span></div>
+    <div class="step"><b>Ship</b><span class="small muted">Built in two-week sprints, shown at demo, released when it meets our definition of done.</span></div>
+  </div>
+
+  <div class="subhead">Who decides</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th style="width:38%">Decision</th><th>Decides</th><th>Consulted</th><th>Informed</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Quarterly outcome goals per product</td><td class="dec">Kylie</td><td>PMs, business stakeholders</td><td>Michael, partners</td></tr>
+      <tr><td class="k">What's in the backlog and in what order</td><td class="dec">PM</td><td>Tech Lead, UX</td><td>Kylie, stakeholders</td></tr>
+      <tr><td class="k">How it's built, estimates, tech approach</td><td class="dec">Tech Lead</td><td>IT, vendors, PM</td><td>Kylie</td></tr>
+      <tr><td class="k">UX patterns and design standards</td><td class="dec">Helen</td><td>PMs, Tech Leads</td><td>Team</td></tr>
+      <tr><td class="k">New request: accept, defer, decline</td><td class="dec">PM</td><td>Kylie for cross-product or large requests</td><td>Requester</td></tr>
+      <tr><td class="k">Release go / no-go</td><td class="dec">Tech Lead + PM</td><td>UX, QA</td><td>Stakeholders</td></tr>
+      <tr><td class="k">Priority or capacity conflicts between pods</td><td class="dec">Kylie</td><td>Both PMs</td><td>Michael if escalated</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="subhead">Our rhythm</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Cadence</th><th>Meeting</th><th>Who</th><th>Output</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Quarterly</td><td>Product planning and roadmap review</td><td>Team + business stakeholders</td><td>Outcome goals per product, capacity agreements</td></tr>
+      <tr><td class="k">Monthly</td><td>Business review</td><td>Kylie, PMs, Michael</td><td>Scorecard, wins, trade-offs</td></tr>
+      <tr><td class="k">Every 2 weeks</td><td>Sprint planning + demo</td><td>Each pod; stakeholders welcome at demo</td><td>Committed sprint, working product shown</td></tr>
+      <tr><td class="k">Weekly</td><td>Intake triage</td><td>Kylie, PMs</td><td>Decision on every new request</td></tr>
+      <tr><td class="k">Weekly</td><td>Product sync</td><td>Whole team</td><td>Cross-pod dependencies, UX queue</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="dod"><h3>Definition of done</h3>
+    <ol><li>Meets acceptance criteria</li><li>Passes QA and accessibility checks</li><li>Analytics in place</li><li>Release notes written</li><li>Live for customers</li></ol>
+    <p class="small" style="color:#c6cfe3">The same standard applies to in-house, IT, and vendor work.</p></div>
+</div></section>
+
+<!-- ============ ROLES ============ -->
+<section class="band off" id="roles"><div class="wrap">
+  <div class="shead"><span class="kicker">Roles</span><h2>Roles and responsibilities</h2></div>
+  <div class="grid g4">
+    <article class="rolecard"><header><h3>Head of Product</h3><span>Kylie Forcinito</span></header><ul><li>Vision, strategy, portfolio roadmap</li><li>Intake and quarterly planning</li><li>Budget, vendors, IT capacity</li><li>Team growth and coaching</li></ul></article>
+    <article class="rolecard"><header><h3>Product Manager</h3><span>Tina Hodson · Haley Lower</span></header><ul><li>Product goals, roadmap, and KPIs</li><li>Backlog priority and acceptance</li><li>Customer discovery with UX</li><li>Stakeholder partner for their products</li></ul></article>
+    <article class="rolecard"><header><h3>Tech Lead</h3><span>Aaron Geist · Pranava Ravindran</span></header><ul><li>Architecture, integrations, APIs</li><li>Estimates and delivery tracking</li><li>Directing IT and vendor engineers</li><li>Release quality and QA standards</li></ul></article>
+    <article class="rolecard"><header><h3>UX Lead</h3><span>Helen Tran</span></header><ul><li>Research plan across products</li><li>Design system and UX standards</li><li>Journey mapping</li><li>Usability checks before release</li></ul></article>
+  </div>
+
+  <div class="subhead">Who to contact</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>If you need…</th><th>Talk to</th></tr></thead>
+    <tbody>
+      <tr><td>A new feature, change, or fix</td><td>Submit a request through our intake process</td></tr>
+      <tr><td>A product's roadmap or a request's status</td><td>That product's owner (see <a href="#products">Products</a>)</td></tr>
+      <tr><td>Technical questions, integrations, release timing</td><td>Aaron (Pod A) or Pranava (Pod B)</td></tr>
+      <tr><td>Design reviews, research, the design system</td><td>Helen</td></tr>
+      <tr><td>Cross-product priorities, partnerships, escalations</td><td>Kylie</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap"><img src="vs-logo-stack-4c-rev.png" width="354" height="400" alt="Varsity Spirit"><span>Internal team hub · Last updated October 2026</span></div></footer>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.nav a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function onScroll(){
+    var y=window.scrollY+100, idx=-1;
+    secs.forEach(function(s,i){if(s&&s.offsetTop<=y)idx=i});
+    links.forEach(function(a,i){a.classList.toggle('on',i===idx)});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>
